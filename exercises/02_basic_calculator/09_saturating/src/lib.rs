@@ -1,3 +1,4 @@
+use std::num::Saturating;
 pub fn factorial(n: u32) -> u32 {
     let mut result = 1;
     for i in 1..=n {

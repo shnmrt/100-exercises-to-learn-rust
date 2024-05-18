@@ -5,7 +5,7 @@
 // For reasons that we'll explain later, the customization needs to be done in the `Cargo.toml`
 // at the root of the repository, not in the `Cargo.toml` of the exercise.
 
-pub fn factorial(n: u32) -> u32 {
+pub fn factorial(n: u64) -> u64 {
     let mut result = 1;
     for i in 1..=n {
         result *= i;
@@ -22,7 +22,7 @@ mod tests {
         // 20! is 2432902008176640000, which is too large to fit in a u32
         // With the default dev profile, this will panic when you run `cargo test`
         // We want it to wrap around instead
-        assert_eq!(factorial(20), 2_192_834_560);
+        assert_eq!(factorial(20), 2_432_902_008_176_640_000);
         //                           ☝️
         // A large number literal using underscores to improve readability!
     }
