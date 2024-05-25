@@ -4,6 +4,30 @@ struct Ticket {
     status: String,
 }
 
+fn validate_status(status: String) -> String {
+    if status != "To-Do" && status != "In Progress" && status != "Done" {
+        panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+    }
+    status
+}
+fn validate_description(description: String) -> String {
+    if description.is_empty() {
+        panic!("Description cannot be empty");
+    }
+    if description.len() > 500 {
+        panic!("Description cannot be longer than 500 characters");
+    }
+    description
+}
+fn validate_title(title: String) -> String {
+    if title.is_empty() {
+        panic!("Title cannot be empty");
+    }
+    if title.len() > 50  {
+        panic!("Title cannot be longer than 50 characters");
+    }
+    return title
+}
 impl Ticket {
     // TODO: implement the `new` function.
     //  The following requirements should be met:
@@ -17,27 +41,11 @@ impl Ticket {
     // as well as some `String` methods. Use the documentation of Rust's standard library
     // to find the most appropriate options -> https://doc.rust-lang.org/std/string/struct.String.html
     fn new(title: String, description: String, status: String) -> Self {
-        if title.is_empty() {
-            panic!("Title cannot be empty");
-        }
-        if title.len() > 50 {
-            panic!("Title cannot be longer than 50 characters");
-        }
 
-        if description.is_empty() {
-            panic!("Description cannot be empty");
-        }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 characters");
-        }
-
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
-        }
         Self {
-            title,
-            description,
-            status,
+            title: validate_title(title),
+            description: validate_description(description),
+            status: validate_status(status),
         }
     }
 }
