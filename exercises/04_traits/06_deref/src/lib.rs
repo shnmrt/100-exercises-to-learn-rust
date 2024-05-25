@@ -11,12 +11,10 @@ pub struct Ticket {
 }
 
 impl Ticket {
-    pub fn title(&self) -> &str {
-        todo!()
-    }
+    pub fn title(&self) -> &str { &self.title.trim()}
 
     pub fn description(&self) -> &str {
-        todo!()
+        &self.description.trim()
     }
 }
 
