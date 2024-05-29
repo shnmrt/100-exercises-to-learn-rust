@@ -12,7 +12,6 @@
 // interested in learning more about it.
 // You don't have to though: it's perfectly okay to write three separate
 // implementations manually. Venture further only if you're curious.
-
 #[cfg(test)]
 mod tests {
     use super::Power;
