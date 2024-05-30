@@ -28,6 +28,12 @@ impl Power<u32> for u32 {
     type Output = u32;
     fn power(&self, n:u32) -> Self::Output { self.pow(n) }
 }
+impl Power<&u32> for u32 {
+    type Output = u32;
+    fn power(&self, n:&u32) -> Self::Output {
+        self.power(*n)
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::Power;
