@@ -1,4 +1,5 @@
-use crate::status::Status;
+use std::os::macos::raw::stat;
+use crate::status::{Status, ParseStatusError};
 
 // We've seen how to declare modules in one of the earliest exercises, but
 // we haven't seen how to extract them into separate files.
@@ -13,6 +14,7 @@ mod status;
 // TODO: Add a new error variant to `TicketNewError` for when the status string is invalid.
 //   When calling `source` on an error of that variant, it should return a `ParseStatusError` rather than `None`.
 
+
 #[derive(Debug, thiserror::Error)]
 pub enum TicketNewError {
     #[error("Title cannot be empty")]
@@ -23,6 +25,8 @@ pub enum TicketNewError {
     DescriptionCannotBeEmpty,
     #[error("Description cannot be longer than 500 bytes")]
     DescriptionTooLong,
+    #[error("{0}")]
+    InvalidStatus(#[from] ParseStatusError),
 }
 
 #[derive(Debug, PartialEq, Clone)]
@@ -48,6 +52,7 @@ impl Ticket {
         }
 
         // TODO: Parse the status string into a `Status` enum.
+        let status= Status::try_from(status)?;
 
         Ok(Ticket {
             title,
