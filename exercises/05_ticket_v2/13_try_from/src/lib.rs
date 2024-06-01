@@ -7,7 +7,28 @@ enum Status {
     InProgress,
     Done,
 }
-
+#[derive(Debug, thiserror::Error)]
+#[error("{status} is not the right one")]
+struct ParseStatusError {
+    status: String
+}
+impl TryFrom<String> for Status {
+    type Error = ParseStatusError;
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        value.as_str().try_into()
+    }
+}
+impl TryFrom<&str> for Status {
+    type Error = ParseStatusError;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        match value.to_lowercase().as_str() {
+            "inprogress" => Ok(Status::InProgress),
+            "todo" => Ok(Status::ToDo),
+            "done" => Ok(Status::Done),
+            _ => Err(ParseStatusError {status: value.to_string()})
+        }
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
