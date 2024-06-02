@@ -5,7 +5,7 @@ use ticket_fields::{TicketDescription, TicketTitle};
 //  it contains using a `for` loop.
 //
 // Hint: you shouldn't have to implement the `Iterator` trait in this case.
-#[derive(Clone)]
+#[derive(Clone, )]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
@@ -24,6 +24,14 @@ pub enum Status {
     Done,
 }
 
+impl IntoIterator for TicketStore {
+    type Item = Ticket;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.into_iter()
+    }
+
+}
 impl TicketStore {
     pub fn new() -> Self {
         Self {

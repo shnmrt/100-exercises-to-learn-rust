@@ -19,12 +19,14 @@ pub enum Status {
     InProgress,
     Done,
 }
-
 impl TicketStore {
     pub fn new() -> Self {
         Self {
             tickets: Vec::new(),
         }
+    }
+    pub fn iter(&self) -> std::slice::Iter<Ticket> {
+        self.tickets.iter()
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
